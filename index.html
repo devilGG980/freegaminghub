@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free Gaming Website - Download and play the best free games online">
+    <meta name="keywords" content="free games, online games, gaming, download games, play games">
+    <title>Free Gaming Hub - Download & Play Free Games</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR-PUBLISHER-ID" crossorigin="anonymous"></script>
+    <script src="js/search.js"></script>
+    <style>
+        /* Enhanced Styles */
+        .hero {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .online-games-title {
+            font-size: 5rem;
+            color: #ff4500;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+            background: linear-gradient(45deg, #ff4500, #ff8c00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .game-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .game-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .game-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .game-card h3 {
+            font-size: 1.5rem;
+            margin: 15px;
+            color: #fff;
+        }
+
+        .game-card p {
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0 15px 15px;
+        }
+
+        .download-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #ff4500;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 15px;
+            transition: background 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background: #ff6b00;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .category-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .category-card i {
+            font-size: 3rem;
+            color: #ff4500;
+            margin-bottom: 15px;
+        }
+
+        .category-card h3 {
+            color: #fff;
+            font-size: 1.5rem;
+        }
+
+        /* Ad Spaces */
+        .ad-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 40px auto;
+            max-width: 1200px;
+            text-align: center;
+        }
+
+        .ad-container.hero-ad {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 300px;
+            z-index: 4;
+        }
+
+        .ad-container.sidebar-ad {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            width: 160px;
+            z-index: 100;
+        }
+
+        .ad-container.bottom-ad {
+            margin-top: 0;
+            margin-bottom: 40px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .online-games-title {
+                font-size: 3rem;
+            }
+
+            .ad-container.hero-ad,
+            .ad-container.sidebar-ad {
+                display: none;
+            }
+        }
+
+        /* Install Button Styles */
+        .install-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            margin: 15px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .install-btn:hover {
+            background: linear-gradient(45deg, #45a049, #4CAF50);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .install-btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .install-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .install-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Responsive Install Button */
+        @media (max-width: 768px) {
+            .install-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="images/logo.png" alt="Free Gaming Hub Logo" class="site-logo">
+                <h1>Free Gaming Hub</h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="active">Home</a>
+                <a href="games.html">Games</a>
+                <a href="online-games.html">Play Online</a>
+                <a href="categories.html">Categories</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search games...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Google AdSense -->
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({
+                google_ad_client: "ca-pub-YOUR-PUBLISHER-ID",
+                enable_page_level_ads: true
+            });
+        </script>
+
+        <!-- Hero Ad -->
+        <div class="ad-container hero-ad">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-YOUR-PUBLISHER-ID"
+                 data-ad-slot="YOUR-AD-SLOT-ID-1"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <section class="hero">
+            <video id="hero-video" autoplay muted loop playsinline>
+                <source src="videos/37585-414024825.mp4" type="video/mp4">
+                <source src="videos/37585-414024825.webm" type="video/webm">
+                Your browser does not support the video tag.
+            </video>
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h2>Welcome to Free Gaming Hub</h2>
+                <h1 class="online-games-title">Online Games Are Also Free!</h1>
+                <p>Download and play the best free games online</p>
+                <a href="games.html" class="cta-button">Explore Games</a>
+            </div>
+        </section>
+
+        <!-- Sidebar Ad -->
+        <div class="ad-container sidebar-ad">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-YOUR-PUBLISHER-ID"
+                 data-ad-slot="YOUR-AD-SLOT-ID-2"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <section class="featured-games">
+            <h2>Featured Games</h2>
+            <div class="game-grid">
+                <div class="game-card">
+                    <img src="images/valorant.jpeg" alt="Valorant">
+                    <div class="game-content">
+                        <h3>Valorant</h3>
+                        <p>5v5 tactical shooter game</p>
+                        <a href="games/valorant.html" class="install-btn">Install</a>
+                    </div>
+                </div>
+                <div class="game-card">
+                    <img src="images/call of duty warzone.jpg" alt="Call of Duty: Warzone">
+                    <div class="game-content">
+                        <h3>Call of Duty: Warzone</h3>
+                        <p>Battle royale game</p>
+                        <a href="games/warzone.html" class="install-btn">Install</a>
+                    </div>
+                </div>
+                <div class="game-card">
+                    <img src="images/pubg.jpeg" alt="PUBG">
+                    <div class="game-content">
+                        <h3>PUBG</h3>
+                        <p>Battle royale game</p>
+                        <a href="games/pubg.html" class="install-btn">Install</a>
+                    </div>
+                </div>
+                <div class="game-card">
+                    <img src="images/overwatch.jpg" alt="Overwatch">
+                    <div class="game-content">
+                        <h3>Overwatch</h3>
+                        <p>Team-based multiplayer FPS</p>
+                        <a href="games/overwatch.html" class="install-btn">Install</a>
+                    </div>
+                </div>
+                <div class="game-card">
+                    <img src="images/fortnite.jpeg" alt="Fortnite">
+                    <div class="game-content">
+                        <h3>Fortnite</h3>
+                        <p>Battle Royale</p>
+                        <a href="games/fortnite.html" class="install-btn">Install</a>
+                    </div>
+                </div>
+                <div class="game-card">
+                    <img src="images/csgo.jpeg" alt="CS:GO">
+                    <div class="game-content">
+                        <h3>CS:GO</h3>
+                        <p>Tactical FPS</p>
+                        <a href="games/csgo.html" class="install-btn">Install</a>
+                    </div>
+                </div>
+                <div class="game-card">
+                    <img src="images/apex legend.jpg" alt="Apex Legends">
+                    <div class="game-content">
+                        <h3>Apex Legends</h3>
+                        <p>Battle Royale</p>
+                        <a href="games/apex.html" class="install-btn">Install</a>
+                    </div>
+                </div>
+                <div class="game-card">
+                    <img src="images/gta V.jpeg" alt="GTA V">
+                    <div class="game-content">
+                        <h3>GTA V</h3>
+                        <p>Action-Adventure</p>
+                        <a href="games/gta.html" class="install-btn">Install</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Middle Ad -->
+        <div class="ad-container">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-YOUR-PUBLISHER-ID"
+                 data-ad-slot="YOUR-AD-SLOT-ID-3"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <section class="online-games-section">
+            <video class="section-video" autoplay muted loop playsinline>
+                <source src="videos/5680034-hd_1920_1080_24fps.mp4" type="video/mp4">
+                <source src="videos/5680034-hd_1920_1080_24fps.webm" type="video/webm">
+                Your browser does not support the video tag.
+            </video>
+            <div class="section-overlay"></div>
+            <div class="section-content">
+                <h2>Play Free Online Games</h2>
+                <p class="section-description">No downloads required - Play instantly in your browser!</p>
+                <div class="game-grid">
+                    <a href="https://agar.io/" class="game-card" target="_blank">
+                        <img src="images/agar.io.jpg" alt="Agar.io">
+                        <div class="game-content">
+                            <h3>Agar.io</h3>
+                            <p>Control your cell and eat other players to grow larger!</p>
+                            <span class="btn play-btn">Play Now</span>
+                        </div>
+                    </a>
+                    <a href="https://slither.io/" class="game-card" target="_blank">
+                        <img src="images/slither.io.jpg" alt="Slither.io">
+                        <div class="game-content">
+                            <h3>Slither.io</h3>
+                            <p>Grow your snake by eating pellets and other players!</p>
+                            <span class="btn play-btn">Play Now</span>
+                        </div>
+                    </a>
+                    <a href="https://2048game.com/" class="game-card" target="_blank">
+                        <img src="images/2048.jpg" alt="2048">
+                        <div class="game-content">
+                            <h3>2048</h3>
+                            <p>Combine tiles to reach the 2048 tile!</p>
+                            <span class="btn play-btn">Play Now</span>
+                        </div>
+                    </a>
+                    <a href="https://tetris.com/play-tetris" class="game-card" target="_blank">
+                        <img src="images/tetris.jpg" alt="Tetris">
+                        <div class="game-content">
+                            <h3>Tetris</h3>
+                            <p>Classic puzzle game - Rotate and place blocks!</p>
+                            <span class="btn play-btn">Play Now</span>
+                        </div>
+                    </a>
+                    <a href="https://sudoku.com/" class="game-card" target="_blank">
+                        <img src="images/sudoku.jpg" alt="Sudoku">
+                        <div class="game-content">
+                            <h3>Sudoku</h3>
+                            <p>Fill the grid with numbers following the rules!</p>
+                            <span class="btn play-btn">Play Now</span>
+                        </div>
+                    </a>
+                    <a href="https://www.chess.com/play/computer" class="game-card" target="_blank">
+                        <img src="images/chess.jpg" alt="Chess">
+                        <div class="game-content">
+                            <h3>Chess</h3>
+                            <p>Classic strategy game - Play against AI or friends!</p>
+                            <span class="btn play-btn">Play Now</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="view-more">
+                    <a href="online-games.html" class="view-more-btn">View All Online Games <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- New Video Background Section -->
+        <section class="video-background-section">
+            <video autoplay muted loop class="background-video">
+                <source src="videos/5680034-hd_1920_1080_24fps.mp4" type="video/mp4">
+                Your browser does not support HTML5 video.
+            </video>
+            <div class="video-overlay"></div>
+            <div class="video-content">
+                <h2>Experience Gaming Like Never Before</h2>
+                <p>Join millions of players worldwide in epic gaming adventures</p>
+                <a href="games.html" class="cta-button">Start Playing</a>
+            </div>
+        </section>
+
+        <section class="game-categories">
+            <h2>Popular Categories</h2>
+            <div class="category-grid">
+                <div class="category-card">
+                    <i class="fas fa-gamepad"></i>
+                    <h3>Action</h3>
+                </div>
+                <div class="category-card">
+                    <i class="fas fa-racing-car"></i>
+                    <h3>Racing</h3>
+                </div>
+                <div class="category-card">
+                    <i class="fas fa-chess"></i>
+                    <h3>Strategy</h3>
+                </div>
+                <div class="category-card">
+                    <i class="fas fa-puzzle-piece"></i>
+                    <h3>Puzzle</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bottom Ad -->
+        <div class="ad-container bottom-ad">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-YOUR-PUBLISHER-ID"
+                 data-ad-slot="YOUR-AD-SLOT-ID-4"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Free Gaming Hub is your one-stop destination for free games. Download and play the best games online.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="games.html">Games</a></li>
+                    <li><a href="categories.html">Categories</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: contact@freegaminghub.com</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Free Gaming Hub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html> 
